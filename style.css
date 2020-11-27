@@ -1,0 +1,19 @@
+
+
+.grid {
+	/* every square is 15px and we need 28 squares per row */
+	width: 420px;
+	height: 420px;
+	border: solid black;
+	display: flex;
+	flex-wrap: wrap
+
+}
+
+/* any div inside the div with class grid */
+.grid div {
+	width: 15px;
+	height: 15px;
+	background: blueviolet
+
+}
