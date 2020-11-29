@@ -72,4 +72,25 @@ createLayout()
 
 //Inital positon of Pacman
 let pacmanCurrentIndex = 490
+//adds class pacman to the pacmanCurrentIndex in the squares array.
 squares[pacmanCurrentIndex].classList.add('pacman')
+
+//up key - 38
+// left - 37
+// right - 39
+//down key - 40
+
+function control (event) {
+	if (event.keyCode === 40){
+		console.log("press down")
+	} else if (event.keyCode === 39) {
+		console.log("press a")
+	} else if (event.keyCode === 38) {
+		console.log("press s")
+	} else if (event.keyCode === 37) {
+		console.log("press d")
+	}
+}
+
+
+document.addEventListener('keyup', control)
