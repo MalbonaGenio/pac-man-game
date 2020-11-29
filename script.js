@@ -62,8 +62,14 @@ function createLayout(){
 			squares[i].classList.add("pac-dot")
 		} else if (layout[i] === 1) {
 			squares[i].classList.add("wall")
+		} else if (layout[i] === 3) {
+			squares[i].classList.add("power-pellet")
 		}
 	}
 }
 
 createLayout()
+
+//Inital positon of Pacman
+let pacmanCurrentIndex = 490
+squares[pacmanCurrentIndex].classList.add('pacman')

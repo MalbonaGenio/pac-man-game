@@ -35,3 +35,17 @@
 .wall {
 	background-color: purple;
 }
+
+/* .ghost-lair {
+
+} */
+
+.power-pellet {
+	background-color: green;
+	border-radius: 7.5px;
+}
+
+.pacman {
+	background-color: yellow;
+	border-radius: 
+}
