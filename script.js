@@ -81,16 +81,20 @@ squares[pacmanCurrentIndex].classList.add('pacman')
 //down key - 40
 
 function control (event) {
-	if (event.keyCode === 40){
-		console.log("press down")
-	} else if (event.keyCode === 39) {
-		console.log("press a")
-	} else if (event.keyCode === 38) {
-		console.log("press s")
-	} else if (event.keyCode === 37) {
-		console.log("press d")
+ switch(event.keyCode) {
+	 case 40: 
+		console.log('pressed down')
+	 break
+	 case 39: 
+		console.log('pressed rigth')
+	 break
+	 case 38: 
+		console.log('pressed up')
+	 break
+	 case 37: 
+		console.log('pressed left')
+	 break
 	}
 }
-
 
 document.addEventListener('keyup', control)
