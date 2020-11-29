@@ -14,7 +14,7 @@
 .grid div {
 	width: 15px;
 	height: 15px;
-	background: blueviolet
+	/* background: blueviolet */
 
 }
 
@@ -23,3 +23,15 @@
   // 2 - ghost-lair
   // 3 - power-pellet
   // 4 - empty */
+
+.pac-dot {
+	background-color: green;
+	/* the white will make the small dot due to color difference and also in combination with the other borders create the path (visually) where we move */
+	border: 5px solid white;
+	/* this makes sure the total widht and heigth includes the padding and the border. */
+	box-sizing: border-box;
+}
+
+.wall {
+	background-color: purple;
+}

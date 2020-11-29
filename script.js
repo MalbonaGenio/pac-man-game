@@ -3,7 +3,7 @@ const width = 28
 //we grab the .grid and the #score form the HTML file
 const grid = document.querySelector('.grid')
 const score = document.getElementById('score')
-//The squares array is created in the createLayout function. Going to use it for the movement part
+//The squares array is created in the createLayout function. Going to use it for to style the layout together with the layout array.
 let squares = []
 
 //The layout is going to be 28 * 28 = 784
@@ -46,9 +46,23 @@ const layout = [
 
 function createLayout(){
 	for (let i = 0; i < layout.length; i++){
+		//creates the square div to put in the div with class grid.
 		const square = document.createElement('div')
+		//appends the square to the grid in the html
 		grid.appendChild(square)
+		//pushes the square to the squares array. This is going to be used to style the layout together with the layout array
 		squares.push(square)
+
+		// 0 - pac-dots
+		// 1 - wall
+		// 2 - ghost-lair
+		// 3 - power-pellet
+		// 4 - empty
+		if (layout[i] === 0) {
+			squares[i].classList.add("pac-dot")
+		} else if (layout[i] === 1) {
+			squares[i].classList.add("wall")
+		}
 	}
 }
 
