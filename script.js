@@ -2,9 +2,10 @@
 const width = 28
 //we grab the .grid and the #score form the HTML file
 const grid = document.querySelector('.grid')
-const score = document.getElementById('score')
+const scoreDisplay = document.getElementById('score')
 //The squares array is created in the createLayout function. Going to use it for to style the layout together with the layout array.
 let squares = []
+let score = 0
 
 //The layout is going to be 28 * 28 = 784
 // 0 - pac-dots
@@ -111,6 +112,21 @@ function control(event) {
 			break
 	}
 	squares[pacmanCurrentIndex].classList.add('pacman')
+	dotEaten()
 }
 
 document.addEventListener('keyup', control)
+
+//checks if the position has the class pac-dot if so updates the score + 1
+function dotEaten() {
+    if (squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
+			squares[pacmanCurrentIndex].classList.remove('pac-dot')
+			score++
+			//updates the html side
+			scoreDisplay.innerHTML = score
+			squares[pacmanCurrentIndex].classList.remove('pac-dot')
+    }
+}
+
+
+
