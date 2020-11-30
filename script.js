@@ -63,7 +63,7 @@ function createLayout() {
 			squares[i].classList.add("pac-dot")
 		} else if (layout[i] === 1) {
 			squares[i].classList.add("wall")
-		} else if (layout[i] === 2){
+		} else if (layout[i] === 2) {
 			squares[i].classList.add("ghost-lair")
 		} else if (layout[i] === 3) {
 			squares[i].classList.add("power-pellet")
@@ -88,27 +88,27 @@ function control(event) {
 	switch (event.keyCode) {
 		case 40:
 			//if the positon is more than 784 then we are outside of the layout AND the index + 28 where we are moving does not have a class of wall AND does not have class of ghost-lair
-			if (!squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex + width].classList.contains('wall') && pacmanCurrentIndex + width < 784) 			pacmanCurrentIndex += width
+			if (!squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex + width].classList.contains('wall') && pacmanCurrentIndex + width < 784) pacmanCurrentIndex += width
 			break
 		case 39:
 			//if module is 27 we are in the last row in the right side of the layout AND the index + 1 where we are moving does not have a class of wall AND does not have class of ghost-lair
 			if (!squares[pacmanCurrentIndex + 1].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex + 1].classList.contains('wall') && pacmanCurrentIndex % width < width - 1) pacmanCurrentIndex += 1
-				//if pacman is in 364 we will make him use the shortcut to the other side of the layout so we can set his position to the corresponding index in the squares array
-				if (pacmanCurrentIndex === 391) {
-					pacmanCurrentIndex = 364
-					} 
+			//if pacman is in 364 we will make him use the shortcut to the other side of the layout so we can set his position to the corresponding index in the squares array
+			if (pacmanCurrentIndex === 391) {
+				pacmanCurrentIndex = 364
+			}
 			break
 		case 38:
 			// if we are less than 0 on the index of squares we are outside of the layout AND the index - 28 where we are moving does not have a class of wall AND does not have class of ghost-lair
-			if (!squares[pacmanCurrentIndex - width].classList.contains('ghost-lair') &&  !squares[pacmanCurrentIndex - width].classList.contains('wall') && pacmanCurrentIndex - width >= 0) pacmanCurrentIndex -= width
+			if (!squares[pacmanCurrentIndex - width].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex - width].classList.contains('wall') && pacmanCurrentIndex - width >= 0) pacmanCurrentIndex -= width
 			break
 		case 37:
 			//if the modulus is = 0 then we are on the first row on the left side of the left AND the index - 1 where we are moving does not have a class of wall AND does not have class of ghost-lair
 			if (!squares[pacmanCurrentIndex - 1].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex - 1].classList.contains('wall') && pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -= 1
-				//if pacman is in 391 we will make him use the shortcut to the other side of the layout so we can set his position to the corresponding index in the squares array
-				if (pacmanCurrentIndex === 364) {
-					pacmanCurrentIndex = 391
-					}
+			//if pacman is in 391 we will make him use the shortcut to the other side of the layout so we can set his position to the corresponding index in the squares array
+			if (pacmanCurrentIndex === 364) {
+				pacmanCurrentIndex = 391
+			}
 			break
 	}
 	squares[pacmanCurrentIndex].classList.add('pacman')
@@ -119,21 +119,25 @@ document.addEventListener('keyup', control)
 
 //checks if the position has the class pac-dot if so updates the score + 1
 function dotEaten() {
-    if (squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
-			squares[pacmanCurrentIndex].classList.remove('pac-dot')
-			score++
-			//updates the html side
-			scoreDisplay.innerHTML = score
-			squares[pacmanCurrentIndex].classList.remove('pac-dot')
-    }
+	if (squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
+		squares[pacmanCurrentIndex].classList.remove('pac-dot')
+		score++
+		//updates the html side
+		scoreDisplay.innerHTML = score
+		squares[pacmanCurrentIndex].classList.remove('pac-dot')
+	}
 }
 
 //creates the template for our ghosts
 class Ghost {
-	constructor(className, startIndex, speed){
+	constructor(className, startIndex, speed) {
 		this.className = className
 		this.startIndex = startIndex
 		this.speed = speed
+		//from here is other variables stored in the constructor
+		this.currentIndex = startIndex
+		this.isScared = false //if true pacman can eat the ghost
+		this.timerId = NaN //will set this one later
 	}
 }
 
@@ -147,3 +151,31 @@ const ghosts = [
 
 // for each ghost in the array, we use the startIndex value to style the squares array wiht the class of each ghost
 ghosts.forEach(ghost => squares[ghost.startIndex].classList.add(ghost.className))
+
+//for each ghost we want to call a fusntion to move them 
+ghosts.forEach(ghost => moveGhost(ghost))
+
+//This fucntion will move all the ghosts in the array ghosts
+function moveGhost(ghost) {
+	const possibleDirections = [+1, +28, -1, -28]
+	//Math random will creata a random number between 0 to less than 1 then multiply by the possibleDirections lenght (4) the result trough math floor will be round downward to the closest integer 
+	let direction = possibleDirections[Math.floor(Math.random() * possibleDirections.length)]
+	console.log(direction)
+	
+	//create a timer function to move each ghost at its speed
+	ghost.timerId = setInterval(function() {
+		//remove the ghost className on the currentIndex
+		squares[ghost.currentIndex].classList.remove(ghost.className)
+		//add direction to currentIndex
+		ghost.currentIndex += direction
+
+		//add ghost className to the new currentIndex
+		squares[ghost.currentIndex].classList.add(ghost.className)
+
+
+	}, ghost.speed)
+
+
+
+}
+
