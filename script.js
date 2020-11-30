@@ -92,6 +92,10 @@ function control(event) {
 		case 39:
 			//if module is 27 we are in the last row in the right side of the layout AND the index + 1 where we are moving does not have a class of wall AND does not have class of ghost-lair
 			if (!squares[pacmanCurrentIndex + 1].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex + 1].classList.contains('wall') && pacmanCurrentIndex % width < width - 1) pacmanCurrentIndex += 1
+				//if pacman is in 364 we will make him use the shortcut to the other side of the layout so we can set his position to the corresponding index in the squares array
+				if (pacmanCurrentIndex === 391) {
+					pacmanCurrentIndex = 364
+					} 
 			break
 		case 38:
 			// if we are less than 0 on the index of squares we are outside of the layout AND the index - 28 where we are moving does not have a class of wall AND does not have class of ghost-lair
@@ -100,6 +104,10 @@ function control(event) {
 		case 37:
 			//if the modulus is = 0 then we are on the first row on the left side of the left AND the index - 1 where we are moving does not have a class of wall AND does not have class of ghost-lair
 			if (!squares[pacmanCurrentIndex - 1].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex - 1].classList.contains('wall') && pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -= 1
+				//if pacman is in 391 we will make him use the shortcut to the other side of the layout so we can set his position to the corresponding index in the squares array
+				if (pacmanCurrentIndex === 364) {
+					pacmanCurrentIndex = 391
+					}
 			break
 	}
 	squares[pacmanCurrentIndex].classList.add('pacman')
