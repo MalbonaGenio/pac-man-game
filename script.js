@@ -150,7 +150,11 @@ const ghosts = [
 ]
 
 // for each ghost in the array, we use the startIndex value to style the squares array wiht the class of each ghost
-ghosts.forEach(ghost => squares[ghost.startIndex].classList.add(ghost.className))
+ghosts.forEach(ghost => {
+	squares[ghost.startIndex].classList.add(ghost.className)
+	//this class is imaginary in the sense that does not style anything but we will use it to detect if there is colision between ghosts
+	squares[ghost.startIndex].classList.add('ghost')
+	})
 
 //for each ghost we want to call a fusntion to move them 
 ghosts.forEach(ghost => moveGhost(ghost))
@@ -164,13 +168,15 @@ function moveGhost(ghost) {
 	
 	//create a timer function to move each ghost at its speed
 	ghost.timerId = setInterval(function() {
-		//remove the ghost className on the currentIndex
-		squares[ghost.currentIndex].classList.remove(ghost.className)
-		//add direction to currentIndex
-		ghost.currentIndex += direction
+		if (!squares[ghost.currentIndex + direction].classList.contains('wall') && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
+			//remove the ghost className on the currentIndex
+			squares[ghost.currentIndex].classList.remove(ghost.className)
+			//add direction to currentIndex
+			ghost.currentIndex += direction
 
-		//add ghost className to the new currentIndex
-		squares[ghost.currentIndex].classList.add(ghost.className)
+			//add ghost className to the new currentIndex
+			squares[ghost.currentIndex].classList.add(ghost.className)
+		}
 
 
 	}, ghost.speed)
