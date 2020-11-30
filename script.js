@@ -62,6 +62,8 @@ function createLayout() {
 			squares[i].classList.add("pac-dot")
 		} else if (layout[i] === 1) {
 			squares[i].classList.add("wall")
+		} else if (layout[i] === 2){
+			squares[i].classList.add("ghost-lair")
 		} else if (layout[i] === 3) {
 			squares[i].classList.add("power-pellet")
 		}
@@ -84,20 +86,20 @@ function control(event) {
 	squares[pacmanCurrentIndex].classList.remove('pacman')
 	switch (event.keyCode) {
 		case 40:
-			//if the positon is more than 784 then we are outside of the layout AND the index + 28 where we are moving does not have a class of wall
-			if (!squares[pacmanCurrentIndex + width].classList.contains('wall') && pacmanCurrentIndex + width < 784) 			pacmanCurrentIndex += width
+			//if the positon is more than 784 then we are outside of the layout AND the index + 28 where we are moving does not have a class of wall AND does not have class of ghost-lair
+			if (!squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex + width].classList.contains('wall') && pacmanCurrentIndex + width < 784) 			pacmanCurrentIndex += width
 			break
 		case 39:
-			//if module is 27 we are in the last row in the right side of the layout AND the index + 1 where we are moving does not have a class of wall
-			if (!squares[pacmanCurrentIndex + 1].classList.contains('wall') && pacmanCurrentIndex % width < width - 1) pacmanCurrentIndex += 1
+			//if module is 27 we are in the last row in the right side of the layout AND the index + 1 where we are moving does not have a class of wall AND does not have class of ghost-lair
+			if (!squares[pacmanCurrentIndex + 1].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex + 1].classList.contains('wall') && pacmanCurrentIndex % width < width - 1) pacmanCurrentIndex += 1
 			break
 		case 38:
-			// if we are less than 0 on the index of squares we are outside of the layout AND the index - 28 where we are moving does not have a class of wall
-			if (!squares[pacmanCurrentIndex - width].classList.contains('wall') && pacmanCurrentIndex - width >= 0) pacmanCurrentIndex -= width
+			// if we are less than 0 on the index of squares we are outside of the layout AND the index - 28 where we are moving does not have a class of wall AND does not have class of ghost-lair
+			if (!squares[pacmanCurrentIndex - width].classList.contains('ghost-lair') &&  !squares[pacmanCurrentIndex - width].classList.contains('wall') && pacmanCurrentIndex - width >= 0) pacmanCurrentIndex -= width
 			break
 		case 37:
-			//if the modulus is = 0 then we are on the first row on the left side of the left AND the index - 1 where we are moving does not have a class of wall
-			if (!squares[pacmanCurrentIndex - 1].classList.contains('wall') && pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -= 1
+			//if the modulus is = 0 then we are on the first row on the left side of the left AND the index - 1 where we are moving does not have a class of wall AND does not have class of ghost-lair
+			if (!squares[pacmanCurrentIndex - 1].classList.contains('ghost-lair') && !squares[pacmanCurrentIndex - 1].classList.contains('wall') && pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -= 1
 			break
 	}
 	squares[pacmanCurrentIndex].classList.add('pacman')
