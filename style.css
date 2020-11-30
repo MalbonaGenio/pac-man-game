@@ -47,5 +47,7 @@
 
 .pacman {
 	background-color: yellow;
-	border-radius: 7.5px
+	border-radius: 7.5px;
+	/* prevents pacman to have a border an have same size as pac-dot due to inheriting the border-box property */
+	border: none;
 }
