@@ -128,5 +128,22 @@ function dotEaten() {
     }
 }
 
+//creates the template for our ghosts
+class Ghost {
+	constructor(className, startIndex, speed){
+		this.className = className
+		this.startIndex = startIndex
+		this.speed = speed
+	}
+}
 
+//Store the ghosts in an array and inside the index we create a new ghost using the constructor
+const ghosts = [
+	new Ghost('blinky', 348, 250),
+	new Ghost('pinky', 376, 400),
+	new Ghost('inky', 351, 300),
+	new Ghost('clyde', 379, 500)
+]
 
+// for each ghost in the array, we use the startIndex value to style the squares array wiht the class of each ghost
+ghosts.forEach(ghost => squares[ghost.startIndex].classList.add(ghost.className))
