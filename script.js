@@ -113,6 +113,7 @@ function control(event) {
 	}
 	squares[pacmanCurrentIndex].classList.add('pacman')
 	dotEaten()
+	powerDotEaten()
 }
 
 document.addEventListener('keyup', control)
@@ -126,6 +127,19 @@ function dotEaten() {
 		scoreDisplay.innerHTML = score
 		squares[pacmanCurrentIndex].classList.remove('pac-dot')
 	}
+}
+
+function powerDotEaten() {
+	if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+		score += 10
+		ghosts.forEach (ghost => ghost.isScared = true)
+		setTimeout(unscareGhosts, 10000);
+
+	}
+}
+
+function unscareGhosts() {
+	ghosts.forEach(ghost => ghost.isScared = false)
 }
 
 //creates the template for our ghosts
@@ -171,17 +185,14 @@ function moveGhost(ghost) {
 		if (!squares[ghost.currentIndex + direction].classList.contains('wall') && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
 			//remove the ghost className on the currentIndex
 			squares[ghost.currentIndex].classList.remove(ghost.className)
+			squares[ghost.currentIndex].classList.remove('ghost')
 			//add direction to currentIndex
 			ghost.currentIndex += direction
 
 			//add ghost className to the new currentIndex
 			squares[ghost.currentIndex].classList.add(ghost.className)
-		}
-
-
+			squares[ghost.currentIndex].classList.add('ghost')
+		} else direction = possibleDirections[Math.floor(Math.random() * possibleDirections.length)]
 	}, ghost.speed)
-
-
-
 }
 
