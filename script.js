@@ -114,6 +114,8 @@ function control(event) {
 	squares[pacmanCurrentIndex].classList.add('pacman')
 	dotEaten()
 	powerDotEaten()
+	checkGameOver()
+	checkWin()
 }
 
 document.addEventListener('keyup', control)
@@ -207,6 +209,24 @@ function moveGhost(ghost) {
 			score += 100
 			squares[ghost.currentIndex].classList.add(ghost.className,'ghost')
 		}
+	checkGameOver()
 	}, ghost.speed)
 }
 
+//fuction to check game over conditions
+function checkGameOver() {
+	if (squares[pacmanCurrentIndex].classList.contains('ghost') && !squares[pacmanCurrentIndex].classList.contains('scared-ghost')) {
+		ghosts.forEach(ghost => clearInterval(ghost.timerId))
+		document.removeEventListener('keyup', control)
+		scoreDisplay.innerHTML = 'Game over'
+	}
+}
+
+//function to check win conditions
+function checkWin() {
+	if(score === 274) {
+		ghosts.forEach(ghost => clearInterval(ghost.timerId))
+		document.removeEventListener('keyup', control)
+		scoreDisplay.innerHTML = 'You won!'
+	}
+}
