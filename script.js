@@ -131,10 +131,10 @@ function dotEaten() {
 
 function powerDotEaten() {
 	if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+		squares[pacmanCurrentIndex].classList.remove('power-pellet')
 		score += 10
 		ghosts.forEach (ghost => ghost.isScared = true)
 		setTimeout(unscareGhosts, 10000);
-
 	}
 }
 
@@ -185,7 +185,7 @@ function moveGhost(ghost) {
 		if (!squares[ghost.currentIndex + direction].classList.contains('wall') && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
 			//remove the ghost className on the currentIndex
 			squares[ghost.currentIndex].classList.remove(ghost.className)
-			squares[ghost.currentIndex].classList.remove('ghost')
+			squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost')
 			//add direction to currentIndex
 			ghost.currentIndex += direction
 
@@ -193,6 +193,12 @@ function moveGhost(ghost) {
 			squares[ghost.currentIndex].classList.add(ghost.className)
 			squares[ghost.currentIndex].classList.add('ghost')
 		} else direction = possibleDirections[Math.floor(Math.random() * possibleDirections.length)]
+		
+		//sets the style to scared-ghost if isScaredis true
+		if (ghost.isScared){
+			squares[ghost.currentIndex].classList.add('scared-ghost')
+		}
 	}, ghost.speed)
+
 }
 
