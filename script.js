@@ -193,12 +193,20 @@ function moveGhost(ghost) {
 			squares[ghost.currentIndex].classList.add(ghost.className)
 			squares[ghost.currentIndex].classList.add('ghost')
 		} else direction = possibleDirections[Math.floor(Math.random() * possibleDirections.length)]
-		
+
 		//sets the style to scared-ghost if isScaredis true
 		if (ghost.isScared){
 			squares[ghost.currentIndex].classList.add('scared-ghost')
 		}
-	}, ghost.speed)
 
+		//if the ghost is current scared AND pacman is on it score goes up 100 points, and the ghost returns to the ghost lair
+		if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pacman')) {
+			squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+			ghost.currentIndex = ghost.startIndex
+			squares[ghost.currentIndex]
+			score += 100
+			squares[ghost.currentIndex].classList.add(ghost.className,'ghost')
+		}
+	}, ghost.speed)
 }
 
